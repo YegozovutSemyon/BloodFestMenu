@@ -1,0 +1,208 @@
+--made by Semyon
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "BloodFestMenu",
+   Icon = 0,
+   LoadingTitle = "BloodFestMenu",
+   LoadingSubtitle = "Made by Semyon",
+   Theme = "Default",
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false,
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+
+   KeySystem = false,
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"Hello"}
+   }
+})
+
+local PlayerTab = Window:CreateTab("GODMODE", "heart-pulse")
+
+local Button = PlayerTab:CreateButton({
+   Name = "Trun ON",
+   Callback = function()
+      while true do
+         task.wait()
+         local args = {
+            [1] = 15
+         }
+         workspace:WaitForChild("Remotes"):WaitForChild("Heal"):FireServer(unpack(args))
+      end
+   end,
+})
+
+local PlayerTab = Window:CreateTab("RANK UP & MONEY FARM", "circle-dollar-sign")
+
+local Button = PlayerTab:CreateButton({
+   Name = "Trun ON ( WARNING OF LAG )",
+   Callback = function()
+      local baseArgsTank = {
+         [1] = "P220_H",
+         [3] = true,
+         [4] = math.huge,
+         [5] = 100,
+         [6] = "Part",
+         [7] = "Commando",
+         [8] = 1,
+         [9] = 2,
+         [10] = 0,
+         [11] = 0,
+         [12] = 0,
+         [13] = true,
+         [14] = 1
+      }
+
+      local baseArgsBoomer = {
+         [1] = "P220_H",
+         [3] = false,
+         [4] = math.huge,
+         [5] = 130,
+         [6] = "Part",
+         [7] = "SMG",
+         [8] = 1,
+         [9] = 0,
+         [10] = 0,
+         [11] = 0,
+         [12] = 0,
+         [13] = false,
+         [14] = 1
+      }
+
+      local baseArgsBasic = {
+         [1] = "P220_H",
+         [3] = false,
+         [4] = math.huge,
+         [5] = 100,
+         [6] = "Union",
+         [7] = "Commando",
+         [8] = 1,
+         [9] = 2,
+         [10] = 0,
+         [11] = 0,
+         [12] = 0,
+         [13] = true,
+         [14] = 1
+      }
+
+      local baseArgsCannon = {
+         [1] = "P220_H",
+         [3] = false,
+         [4] = math.huge,
+         [5] = 130,
+         [6] = "Part",
+         [7] = "SMG",
+         [8] = 1,
+         [9] = 0,
+         [10] = 0,
+         [11] = 0,
+         [12] = 0,
+         [13] = false,
+         [14] = 1
+      }
+
+      local baseArgsButcher = {
+         [1] = "P220_H",
+         [3] = false,
+         [4] = math.huge,
+         [5] = 130,
+         [6] = "a",
+         [7] = "SMG",
+         [8] = 1,
+         [9] = 0,
+         [10] = 0,
+         [11] = 0,
+         [12] = 0,
+         [13] = false,
+         [14] = 1
+      }
+
+      local baseArgsTheOppressor = {
+         [1] = "P220_H",
+         [3] = false,
+         [4] = math.huge,
+         [5] = 130,
+         [6] = "Union",
+         [7] = "SMG",
+         [8] = 1,
+         [9] = 0,
+         [10] = 0,
+         [11] = 0,
+         [12] = 0,
+         [13] = false,
+         [14] = 1
+      }
+
+      local dmgEvent = workspace:WaitForChild("Remotes"):WaitForChild("DMG")
+      local shootStateEvent = workspace:WaitForChild("Remotes"):WaitForChild("shootState")
+
+      local function damageEnemy(enemy, args)
+         args[2] = enemy
+         dmgEvent:FireServer(unpack(args))
+      end
+
+      local function detectAndDamageEnemies()
+         local enemiesFolder = workspace:WaitForChild("Enemies")
+         local enemies = enemiesFolder:GetChildren()
+
+         for _, enemy in ipairs(enemies) do
+            if enemy:IsA("Model") or enemy:IsA("BasePart") then
+               local args
+               if enemy.Name == "Tank" then
+                  args = table.clone(baseArgsTank)
+               elseif enemy.Name == "Boomer" then
+                  args = table.clone(baseArgsBoomer)
+               elseif enemy.Name == "Basic" then
+                  args = table.clone(baseArgsBasic)
+               elseif enemy.Name == "Cannon" then
+                  args = table.clone(baseArgsCannon)
+               elseif enemy.Name == "Butcher" then
+                  args = table.clone(baseArgsButcher)
+               elseif enemy.Name == "TheOppressor" then
+                  args = table.clone(baseArgsTheOppressor)
+               else
+                  args = table.clone(baseArgsBasic)
+               end
+
+               damageEnemy(enemy, args)
+            end
+         end
+      end
+
+      local function activateShootState()
+         local shootArgs = { [1] = true }
+         shootStateEvent:FireServer(unpack(shootArgs))
+      end
+
+      activateShootState()
+
+      while true do
+         detectAndDamageEnemies()
+         wait(0.5)
+      end
+   end,
+})
+
+local PlayerTab = Window:CreateTab("Credits", "square-code")
+
+local Label = PlayerTab:CreateLabel("Semyon", "user-round-cog")
+local Label = PlayerTab:CreateLabel("Rayfield UI", "paint-roller")
