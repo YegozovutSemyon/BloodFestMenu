@@ -202,8 +202,9 @@ local Button = PlayerTab:CreateButton({
    end,
 })
 
-local Label = PlayerTab:CreateLabel("EQUIP YOUR PISTOL BEFORE TRUNING ON THE RANK&MONEY FARMING", "message-square-warning")
+local Label = PlayerTab:CreateLabel("EQUIP YOUR PISTOL BEFORE TRUNING ON THIS", "message-square-warning")
 local Label = PlayerTab:CreateLabel("WARNING OF LAG", "message-square-warning")
+local Label = PlayerTab:CreateLabel("P220_H WEAPON REQUIRED", "message-square-warning")
 
 
 local PlayerTab = Window:CreateTab("Credits", "square-code")
